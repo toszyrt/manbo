@@ -1,0 +1,13 @@
+{
+  "userId": "12345",
+  "passToken": "V1:xxx==",
+  "miot": {
+    "ssecurity": "xxx",
+    "serviceToken": "xxx"
+  },
+  "mina": {
+    "micoapi_slh": "xxx",
+    "micoapi_ph": "xxx",
+    "serviceToken": "xxx"
+  }
+}
