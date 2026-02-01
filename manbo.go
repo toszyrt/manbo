@@ -57,9 +57,15 @@ func (m *Manbo) Init() {
 }
 
 func (m *Manbo) Loop() {
+	var (
+		sleep    = time.Second
+		maxSleep = 5 * time.Second
+	)
 	for {
-		// 1. 1s获取1次最新对话
-		time.Sleep(time.Second)
+		// 1. 获取最新对话
+		time.Sleep(sleep)
+		sleep += time.Second
+		sleep = min(sleep, maxSleep)
 		conservation, err := m.xCli.MinaGetLatestConversation(m.hardware, m.deviceID)
 		if err != nil {
 			log.Println(err)
@@ -80,6 +86,7 @@ func (m *Manbo) Loop() {
 		if query == lastQuery && timestamp == lastTimestamp {
 			continue // 没有新的消息
 		}
+		sleep = time.Second
 		evtName, err := DispatchEvent(query)
 		if len(evtName) != 0 {
 			time.Sleep(3 * time.Second) // 等待"好的"说完
